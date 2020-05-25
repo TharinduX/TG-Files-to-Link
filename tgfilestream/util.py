@@ -13,11 +13,14 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+import math
+import time
 from typing import Tuple, Union
 
 from telethon import events
 from telethon.tl.custom import Message
-from telethon.tl.types import TypeInputPeer, InputPeerChannel, InputPeerChat, InputPeerUser
+from telethon.tl.types import TypeInputPeer, InputPeerChannel, InputPeerChat
+from telethon.tl.types import InputPeerUser
 from aiohttp import web
 
 from .config import trust_headers
@@ -61,6 +64,37 @@ def get_file_name(message: Union[Message, events.NewMessage.Event]) -> str:
         return message.file.name
     ext = message.file.ext or ""
     return f"{message.date.strftime('%Y-%m-%d_%H:%M:%S')}{ext}"
+
+
+def get_file_size(message: Union[Message, events.NewMessage.Event]) -> str:
+    if message.file.size:
+        return message.file.size
+
+
+def convert_size(size):
+    if (size == 0):
+        return '0B'
+    size_name = ("B", "KiB", "MiB", "GiB")
+    i = int(math.floor(math.log(size, 1024)))
+    p = math.pow(1024, i)
+    s = round(size/p, 2)
+    return '%s %s' % (s, size_name[i])
+
+
+def get_file_type(message: Union[Message, events.NewMessage.Event]) -> str:
+    if message.file.mime_type:
+        return message.file.mime_type
+
+
+def get_duration(message: Union[Message, events.NewMessage.Event]) -> str:
+    if message.file.duration:
+        return message.file.duration
+
+
+def convert_time(seconds):
+    if seconds is not None:
+        return time.strftime("%H:%M:%S", time.gmtime(seconds))
+    return("No data")
 
 
 def get_requester_ip(req: web.Request) -> str:

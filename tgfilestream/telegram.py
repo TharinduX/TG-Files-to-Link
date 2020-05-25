@@ -27,7 +27,7 @@ from .config import (
     start_message,
     group_chat_message
 )
-from .util import pack_id, get_file_name
+from .util import pack_id, get_file_name, get_file_size, convert_size, get_file_type, get_duration, convert_time
 
 log = logging.getLogger(__name__)
 
@@ -43,7 +43,15 @@ async def handle_message(evt: events.NewMessage.Event) -> None:
     if not evt.file:
         await evt.reply(start_message)
         return
-    url = public_url / str(pack_id(evt)) / get_file_name(evt)
-    await evt.reply(f"Link to download file: {url}")
-    log.info(f"Replied with link for {evt.id} to {evt.from_id} in {evt.chat_id}")
+
+    url = public_url / str(pack_id(evt)) / (get_file_name(evt))
+    file_name = (get_file_name(evt))
+    # file_size = (get_file_size(evt))
+    file_size = convert_size(get_file_size(evt))
+    file_type = get_file_type(evt)
+    duration = convert_time(get_duration(evt))
+    # [{file_name}]({url})")
+    await evt.reply(f"File name : {file_name}\nFile size : {file_size}\nFile type : {file_type}\nDuration : {duration}\nDownload Link : {url}", link_preview=False)
+    log.info(
+        f"Replied with link for {evt.id} to {evt.from_id} in {evt.chat_id}")
     log.debug(f"Link to {evt.id} in {evt.chat_id}: {url}")
