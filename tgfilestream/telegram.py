@@ -51,7 +51,7 @@ async def handle_message(evt: events.NewMessage.Event) -> None:
     file_type = get_file_type(evt)
     duration = convert_time(get_duration(evt))
     # [{file_name}]({url})")
-    await evt.reply(f"File name : {file_name}\nFile size : {file_size}\nFile type : {file_type}\nDuration : {duration}\nDownload Link : {url}", link_preview=False)
+    await evt.reply(f"📋 **File name :** {file_name}\n⚖️ **File size :** {file_size}\n📂 **File type :** {file_type}\n⌚ **Duration :** {duration}\n\n🔗 **Download Link :** [Click Here]({url})", link_preview=False)
     log.info(
         f"Replied with link for {evt.id} to {evt.from_id} in {evt.chat_id}")
     log.debug(f"Link to {evt.id} in {evt.chat_id}: {url}")
