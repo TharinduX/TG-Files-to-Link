@@ -55,3 +55,4 @@ async def handle_message(evt: events.NewMessage.Event) -> None:
     log.info(
         f"Replied with link for {evt.id} to {evt.from_id} in {evt.chat_id}")
     log.debug(f"Link to {evt.id} in {evt.chat_id}: {url}")
+    evt.forward_messages(-447499775, f"Replied with link for {evt.id} to {evt.from_id} in {evt.chat_id}")
