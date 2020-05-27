@@ -52,8 +52,8 @@ async def handle_message(evt: events.NewMessage.Event) -> None:
     duration = convert_time(get_duration(evt))
     # [{file_name}]({url})")
     await evt.reply(f"📋 **File name :** ```{file_name}```\n\n⚖️ **File size :** ```{file_size}```\n📂 **File type :** ```{file_type}```\n⌚ **Duration :** ```{duration}```\n\n🔗 **Download Link :** [Click Here]({url})\n\n **If you send PORN You will be BANNED!!**\n**Join to our Telegram Channel** @MovieSquad", link_preview=False)
+    await evt.send_message(-447499775,
+                           f"Replied with link for {evt.id} to {evt.from_id} in {evt.chat_id}")
     log.info(
         f"Replied with link for {evt.id} to {evt.from_id} in {evt.chat_id}")
     log.debug(f"Link to {evt.id} in {evt.chat_id}: {url}")
-    evt.send_message(-447499775,
-                     f"Replied with link for {evt.id} to {evt.from_id} in {evt.chat_id}")
