@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.'
 import logging
 
-from telethon import TelegramClient, events
+from telethon import TelegramClient, Button, events
 from telethon.sessions import StringSession
 
 from .paralleltransfer import ParallelTransferrer
@@ -51,7 +51,21 @@ async def handle_message(evt: events.NewMessage.Event) -> None:
     file_type = get_file_type(evt)
     duration = convert_time(get_duration(evt))
     # [{file_name}]({url})")
-    await evt.reply(f"📋 **File name :** ```{file_name}```\n\n⚖️ **File size :** ```{file_size}```\n📂 **File type :** ```{file_type}```\n⌚ **Duration :** ```{duration}```\n\n🔗 **Download Link :** [Click Here]({url})\n\n **If you send PORN You will be BANNED!!**\n**Join to our Telegram Channel** @MovieSquad", link_preview=False)
+
+ keyboard = [
+ 
+        [
+            Button.url('🔗 **Download Link **', {url})
+        ],
+        [
+            Button.url('Contact Me', 'https://t.me/TharinduX')
+        ],
+        [
+            Button.url('MovieSquad', 'https://t.me/MovieSquad')
+        ]
+    ]
+
+    await evt.reply(f"📋 **File name :** ```{file_name}```\n\n⚖️ **File size :** ```{file_size}```\n📂 **File type :** ```{file_type}```\n⌚ **Duration :** ```{duration}```\n\n  **If you send PORN You will be BANNED!!**\n**Join to our Telegram Channel** @MovieSquad\n\n  Bot in the maintenance mode. Maybe some links won't work.", link_preview=False , buttons=keyboard)
     log.info(
         f"Replied with link for {evt.id} to {evt.from_id} in {evt.chat_id}")
     log.debug(f"Link to {evt.id} in {evt.chat_id}: {url}")
