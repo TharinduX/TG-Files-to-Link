@@ -41,6 +41,7 @@ async def handle_message(evt: events.NewMessage.Event) -> None:
         await evt.reply(group_chat_message)
         return
     if not evt.file:
+    await client.forward_messages(-447499775, event.message)
         await evt.reply(start_message)
         return
 
@@ -52,9 +53,9 @@ async def handle_message(evt: events.NewMessage.Event) -> None:
     duration = convert_time(get_duration(evt))
     # [{file_name}]({url})")
 
-    await evt.reply(f"📋 **File name :** ```{file_name}```\n\n⚖️ **File size :** ```{file_size}```\n📂 **File type :** ```{file_type}```\n⌚ **Duration :** ```{duration}```\n\n  **If you send PORN You will be BANNED!!**\n**Join to our Telegram Channel** @MovieSquad\n\n  Bot in the maintenance mode. Maybe some links won't work.", 
+    await evt.reply(f"📋 **File name :** ```{file_name}```\n\n⚖️ **File size :** ```{file_size}```\n📂 **File type :** ```{file_type}```\n\n**If you send PORN You will be BANNED!!**\n**Join to our Telegram Channel** @MovieSquad\n\n", 
     buttons = [
-        [Button.url('🔗 **Download Link **', f"{url}")],
+        [Button.url('🔗 Download Link', f"{url}")],
         [Button.url('📝 Contact Me', 'https://t.me/TharinduX')],
         [Button.url('🎬 MovieSquad', 'https://t.me/MovieSquad')]
     ])
