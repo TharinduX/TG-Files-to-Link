@@ -52,20 +52,12 @@ async def handle_message(evt: events.NewMessage.Event) -> None:
     duration = convert_time(get_duration(evt))
     # [{file_name}]({url})")
 
- keyboard = [
- 
-        [
-            Button.url('🔗 **Download Link **', '{url}')
-        ],
-        [
-            Button.url('Contact Me', 'https://t.me/TharinduX')
-        ],
-        [
-            Button.url('MovieSquad', 'https://t.me/MovieSquad')
-        ]
-    ]
-
-    await evt.reply(f"📋 **File name :** ```{file_name}```\n\n⚖️ **File size :** ```{file_size}```\n📂 **File type :** ```{file_type}```\n⌚ **Duration :** ```{duration}```\n\n  **If you send PORN You will be BANNED!!**\n**Join to our Telegram Channel** @MovieSquad\n\n  Bot in the maintenance mode. Maybe some links won't work.", link_preview=False , buttons=keyboard)
+    await evt.reply(f"📋 **File name :** ```{file_name}```\n\n⚖️ **File size :** ```{file_size}```\n📂 **File type :** ```{file_type}```\n⌚ **Duration :** ```{duration}```\n\n  **If you send PORN You will be BANNED!!**\n**Join to our Telegram Channel** @MovieSquad\n\n  Bot in the maintenance mode. Maybe some links won't work.", 
+    buttons = [
+        [Button.url('🔗 **Download Link **', '{url}')],
+        [Button.url('Contact Me', 'https://t.me/TharinduX')],
+        [Button.url('MovieSquad', 'https://t.me/MovieSquad')]
+    ])
     log.info(
         f"Replied with link for {evt.id} to {evt.from_id} in {evt.chat_id}")
     log.debug(f"Link to {evt.id} in {evt.chat_id}: {url}")
