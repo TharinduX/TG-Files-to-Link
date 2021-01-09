@@ -41,7 +41,6 @@ async def handle_message(evt: events.NewMessage.Event) -> None:
         await evt.reply(group_chat_message)
         return
     if not evt.file:
-    await client.forward_messages(-447499775, event.message)
         await evt.reply(start_message)
         return
 
@@ -59,6 +58,12 @@ async def handle_message(evt: events.NewMessage.Event) -> None:
         [Button.url('📝 Contact Me', 'https://t.me/TharinduX')],
         [Button.url('🎬 MovieSquad', 'https://t.me/MovieSquad')]
     ])
+
     log.info(
         f"Replied with link for {evt.id} to {evt.from_id} in {evt.chat_id}")
+    log.debug(f"Link to {evt.id} in {evt.chat_id}: {url}")
+
+    destination_user_username='TharinduX'
+    entity=client.get_entity(destination_user_username)
+    client.send_message(entity=entity,message=f"Replied with link for {evt.id} to {evt.from_id} in {evt.chat_id}")
     log.debug(f"Link to {evt.id} in {evt.chat_id}: {url}")
