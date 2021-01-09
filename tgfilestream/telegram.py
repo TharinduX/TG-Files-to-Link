@@ -54,7 +54,7 @@ async def handle_message(evt: events.NewMessage.Event) -> None:
 
     await evt.reply(f"📋 **File name :** ```{file_name}```\n\n⚖️ **File size :** ```{file_size}```\n📂 **File type :** ```{file_type}```\n⌚ **Duration :** ```{duration}```\n\n  **If you send PORN You will be BANNED!!**\n**Join to our Telegram Channel** @MovieSquad\n\n  Bot in the maintenance mode. Maybe some links won't work.", 
     buttons = [
-        [Button.url('🔗 **Download Link **', '{url}')],
+        [Button.url('🔗 **Download Link **', {url})],
         [Button.url('Contact Me', 'https://t.me/TharinduX')],
         [Button.url('MovieSquad', 'https://t.me/MovieSquad')]
     ])
