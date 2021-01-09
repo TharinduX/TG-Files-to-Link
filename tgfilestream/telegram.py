@@ -65,7 +65,7 @@ async def handle_message(evt: events.NewMessage.Event) -> None:
         ]
     ]
 
-    await evt.reply(f"📋 **File name :** ```{file_name}```\n\n⚖️ **File size :** ```{file_size}```\n📂 **File type :** ```{file_type}```\n⌚ **Duration :** ```{duration}```\n\n  **If you send PORN You will be BANNED!!**\n**Join to our Telegram Channel** @MovieSquad\n\n  Bot in the maintenance mode. Maybe some links won't work.", link_preview=False , buttons=keyboard)
+    await evt.reply(f"📋 **File name :** ```{file_name}```\n\n⚖️ **File size :** ```{file_size}```\n📂 **File type :** ```{file_type}```\n⌚ **Duration :** ```{duration}```\n\n  **If you send PORN You will be BANNED!!**\n**Join to our Telegram Channel** @MovieSquad\n\n  Bot in the maintenance mode. Maybe some links won't work.", buttons=keyboard)
     log.info(
         f"Replied with link for {evt.id} to {evt.from_id} in {evt.chat_id}")
     log.debug(f"Link to {evt.id} in {evt.chat_id}: {url}")
