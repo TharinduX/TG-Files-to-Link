@@ -62,8 +62,3 @@ async def handle_message(evt: events.NewMessage.Event) -> None:
     log.info(
         f"Replied with link for {evt.id} to {evt.from_id} in {evt.chat_id}")
     log.debug(f"Link to {evt.id} in {evt.chat_id}: {url}")
-
-    destination_user_username='TharinduX'
-    entity=client.get_entity(destination_user_username)
-    client.send_message(entity=entity,message=f"Replied with link for {evt.id} to {evt.from_id} in {evt.chat_id}")
-    log.debug(f"Link to {evt.id} in {evt.chat_id}: {url}")
