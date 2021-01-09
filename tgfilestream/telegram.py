@@ -33,7 +33,7 @@ log = logging.getLogger(__name__)
 
 client = TelegramClient(StringSession(session_name), api_id, api_hash)
 transfer = ParallelTransferrer(client)
-api_key = "01300e2c9748234447e8bf581c6e012b20c35"
+
 
 @client.on(events.NewMessage)
 async def handle_message(evt: events.NewMessage.Event) -> None:
@@ -52,16 +52,6 @@ async def handle_message(evt: events.NewMessage.Event) -> None:
     duration = convert_time(get_duration(evt))
     # [{file_name}]({url})")
 
-
-api_url = f"https://cutt.ly/api/api.php?key={api_key}&short={url}"
-data = requests.get(api_url).json()["url"]
-if data["status"] == 7:
-    shortened_url = data["shortLink"]
-    print("Shortened URL:", shortened_url)
-else:
-    print("[!] Error Shortening URL:", data)
-    
-
     await evt.reply(f"📋 **File name :** ```{file_name}```\n\n⚖️ **File size :** ```{file_size}```\n📂 **File type :** ```{file_type}```\n\n**If you send PORN You will be BANNED!!**\n**Join to our Telegram Channel** @MovieSquad\n\n", 
     buttons = [
         [Button.url('🔗 Download Link', f"{url}")],
@@ -72,3 +62,4 @@ else:
     log.info(
         f"Replied with link for {evt.id} to {evt.from_id} in {evt.chat_id}")
     log.debug(f"Link to {evt.id} in {evt.chat_id}: {url}")
+    
