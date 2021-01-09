@@ -14,8 +14,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.'
 import logging
-import requests
-import urllib
 
 from telethon import TelegramClient, Button, events
 from telethon.sessions import StringSession
@@ -54,28 +52,22 @@ async def handle_message(evt: events.NewMessage.Event) -> None:
     duration = convert_time(get_duration(evt))
     # [{file_name}]({url})")
 
-    new_url = urllib.parse.quote(f"{url}")
-    api_url = f"https://cutt.ly/api/api.php?key={api_key}&short={new_url}"
-    data = requests.get(api_url).json()["url"]
-print(data)
-    # if data["status"] == 7:
-    # shortened_url = data["shortLink"]
-    
-    # await evt.reply(f"📋 **File name :** ```{file_name}```\n\n⚖️ **File size :** ```{file_size}```\n📂 **File type :** ```{file_type}```\n\n**If you send PORN You will be BANNED!!**\n**Join to our Telegram Channel** @MovieSquad\n\n", 
-    # buttons = [
-    #     [Button.url('🔗 Download Link', f"{shortened_url}")],
-    #     [Button.url('📝 Contact Me', 'https://t.me/TharinduX')],
-    #     [Button.url('🎬 MovieSquad', 'https://t.me/MovieSquad')]
-    # ])
 
-    # else:
+api_url = f"https://cutt.ly/api/api.php?key={api_key}&short={url}"
+data = requests.get(api_url).json()["url"]
+if data["status"] == 7:
+    shortened_url = data["shortLink"]
+    print("Shortened URL:", shortened_url)
+else:
+    print("[!] Error Shortening URL:", data)
+    
+
     await evt.reply(f"📋 **File name :** ```{file_name}```\n\n⚖️ **File size :** ```{file_size}```\n📂 **File type :** ```{file_type}```\n\n**If you send PORN You will be BANNED!!**\n**Join to our Telegram Channel** @MovieSquad\n\n", 
     buttons = [
         [Button.url('🔗 Download Link', f"{url}")],
         [Button.url('📝 Contact Me', 'https://t.me/TharinduX')],
         [Button.url('🎬 MovieSquad', 'https://t.me/MovieSquad')]
     ])
-
 
     log.info(
         f"Replied with link for {evt.id} to {evt.from_id} in {evt.chat_id}")
