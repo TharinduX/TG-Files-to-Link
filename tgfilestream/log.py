@@ -17,6 +17,8 @@ import requests
 from logging import Handler, Formatter
 import logging
 import datetime
+from .config import log_config, debug
+
 
 TELEGRAM_TOKEN = '1078276956:AAGfyOjbH3WpaxcRDaoEpQTct9up2lVC22U'
 TELEGRAM_CHAT_ID = '-447499775'
@@ -45,8 +47,8 @@ class LogstashFormatter(Formatter):
 
 
 def main():
-	logger = logging.getLogger('telethon')
-	logger.setLevel(logging.INFO)
+	logger = logging.getLogger('tgfilestream')
+	logger.setLevel(logging.INFO if debug else logging.ERROR)
 
 	handler = RequestsHandler()
 	formatter = LogstashFormatter()
@@ -63,13 +65,3 @@ if __name__ == '__main__':
 
 
 # import logging
-
-# from .config import log_config, debug
-
-# if log_config:
-#     logging.basicConfig(filename=log_config)
-# else:
-#     logging.basicConfig(level=logging.DEBUG if debug else logging.INFO)
-#     logging.getLogger("telethon").setLevel(logging.INFO if debug else logging.ERROR)
-
-# log = logging.getLogger("tgfilestream")
