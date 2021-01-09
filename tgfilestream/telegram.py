@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.'
 import logging
+import requests
 
 from telethon import TelegramClient, Button, events
 from telethon.sessions import StringSession
@@ -33,7 +34,7 @@ log = logging.getLogger(__name__)
 
 client = TelegramClient(StringSession(session_name), api_id, api_hash)
 transfer = ParallelTransferrer(client)
-
+api_key = "01300e2c9748234447e8bf581c6e012b20c35"
 
 @client.on(events.NewMessage)
 async def handle_message(evt: events.NewMessage.Event) -> None:
@@ -52,12 +53,26 @@ async def handle_message(evt: events.NewMessage.Event) -> None:
     duration = convert_time(get_duration(evt))
     # [{file_name}]({url})")
 
+
+    api_url = f"https://cutt.ly/api/api.php?key={api_key}&short={url}"
+    data = requests.get(api_url).json()["url"]
+    if data["status"] == 7:
+    shortened_url = data["shortLink"]
+    await evt.reply(f"📋 **File name :** ```{file_name}```\n\n⚖️ **File size :** ```{file_size}```\n📂 **File type :** ```{file_type}```\n\n**If you send PORN You will be BANNED!!**\n**Join to our Telegram Channel** @MovieSquad\n\n", 
+    buttons = [
+        [Button.url('🔗 Download Link', f"{shortened_url}")],
+        [Button.url('📝 Contact Me', 'https://t.me/TharinduX')],
+        [Button.url('🎬 MovieSquad', 'https://t.me/MovieSquad')]
+    ])
+
+    else:
     await evt.reply(f"📋 **File name :** ```{file_name}```\n\n⚖️ **File size :** ```{file_size}```\n📂 **File type :** ```{file_type}```\n\n**If you send PORN You will be BANNED!!**\n**Join to our Telegram Channel** @MovieSquad\n\n", 
     buttons = [
         [Button.url('🔗 Download Link', f"{url}")],
         [Button.url('📝 Contact Me', 'https://t.me/TharinduX')],
         [Button.url('🎬 MovieSquad', 'https://t.me/MovieSquad')]
     ])
+
 
     log.info(
         f"Replied with link for {evt.id} to {evt.from_id} in {evt.chat_id}")
