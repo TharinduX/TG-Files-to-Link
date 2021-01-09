@@ -47,17 +47,19 @@ class LogstashFormatter(Formatter):
 
 
 def main():
-	logger = logging.getLogger('tgfilestream')
-	logger.setLevel(logging.INFO if debug else logging.ERROR)
+
+ if log_config:
+    logging.basicConfig(filename=log_config)
+ else:
+    logging.basicConfig(level=logging.DEBUG if debug else logging.INFO)
+    logging.getLogger("telethon").setLevel(logging.INFO if debug else logging.ERROR)
+
+ log = logging.getLogger("tgfilestream")
 
 	handler = RequestsHandler()
 	formatter = LogstashFormatter()
 	handler.setFormatter(formatter)
-	logger.addHandler(handler)
-
-	logger.setLevel(logging.WARNING)
-
-	logger.error('We have a problem')
+	logging.addHandler(handler)
 
 
 if __name__ == '__main__':
